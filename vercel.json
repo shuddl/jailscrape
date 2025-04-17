@@ -1,0 +1,10 @@
+{
+  "buildCommand": "bash api/build.sh",
+  "outputDirectory": "dashboard",
+  "devCommand": "streamlit run dashboard/app.py",
+  "installCommand": "pip install streamlit",
+  "framework": "other",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/api/streamlit" }
+  ]
+}

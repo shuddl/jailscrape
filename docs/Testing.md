@@ -7,6 +7,7 @@ This document outlines the testing procedures for the jail roster scraper to ens
 Before deploying the scraper to run automatically, perform these manual tests:
 
 1. Run the scraper with default configuration:
+
    ```bash
    cd /path/to/jailscrape
    source venv/bin/activate
@@ -48,6 +49,7 @@ Test the scraper's ability to handle common error scenarios:
 Test automatic execution with cron:
 
 1. Configure cron to run the scraper every 5 minutes temporarily:
+
    ```
    */5 * * * * /full/path/to/venv/bin/python /full/path/to/jailscrape/scraper/main.py >> /full/path/to/jailscrape/logs/cron.log 2>&1
    ```
@@ -59,6 +61,7 @@ Test automatic execution with cron:
    - Email alerts function as expected
 
 3. Check resource usage during runs:
+
    ```bash
    top -b -n 1 | grep python
    ```
@@ -81,6 +84,7 @@ Manually verify the accuracy of extracted data:
 If using the Streamlit dashboard:
 
 1. Start the dashboard:
+
    ```bash
    cd /path/to/jailscrape/dashboard
    streamlit run app.py

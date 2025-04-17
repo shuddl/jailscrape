@@ -5,22 +5,26 @@ This document outlines the detailed steps to validate the jail roster scraper be
 ## Preparation
 
 1. Ensure all requirements are installed:
+
    ```bash
    pip install -r scraper/requirements.txt
    ```
 
 2. Install Playwright browsers:
+
    ```bash
    playwright install chromium
    ```
 
 3. Create a `.env` file with test settings:
+
    ```bash
    cp scraper/.env.example .env
    # Edit .env for testing
    ```
 
 4. Ensure all directories exist:
+
    ```bash
    mkdir -p data logs scraper/debug_screenshots
    ```
@@ -30,6 +34,7 @@ This document outlines the detailed steps to validate the jail roster scraper be
 ### Step 1: Configuration Validation
 
 1. Run the scraper with deliberately invalid settings to test error handling:
+
    ```bash
    # Make a backup of .env
    cp .env .env.backup
@@ -44,6 +49,7 @@ This document outlines the detailed steps to validate the jail roster scraper be
    ```
 
 2. Test with minimal valid configuration:
+
    ```bash
    # Create minimal .env
    cat > .env << EOL
@@ -58,6 +64,7 @@ This document outlines the detailed steps to validate the jail roster scraper be
 ### Step 2: Initial Run
 
 1. Run the scraper with clean state:
+
    ```bash
    # Remove test database if it exists
    rm -f data/test_inmates.db
@@ -80,6 +87,7 @@ This document outlines the detailed steps to validate the jail roster scraper be
 ### Step 3: Incremental Run Test
 
 1. Run the scraper again with existing state:
+
    ```bash
    python scraper/main.py
    ```
@@ -93,6 +101,7 @@ This document outlines the detailed steps to validate the jail roster scraper be
 ### Step 4: Error Recovery Testing
 
 1. Test network resilience:
+
    ```bash
    # In one terminal, start a proxy that can be interrupted
    # This step would require a proxy tool like mitmproxy
@@ -102,12 +111,14 @@ This document outlines the detailed steps to validate the jail roster scraper be
    ```
 
 2. Test screenshot-on-failure:
+
    ```bash
    # Modify a selector in scraper.py to an invalid one
    # Run the scraper and verify screenshot is captured
    ```
 
 3. Test database error recovery:
+
    ```bash
    # Create a read-only database file
    touch data/readonly.db
@@ -122,11 +133,13 @@ This document outlines the detailed steps to validate the jail roster scraper be
 ### Step 5: Load and Performance Testing
 
 1. Measure resource usage:
+
    ```bash
    /usr/bin/time -v python scraper/main.py
    ```
 
 2. Check for memory leaks or excessive resource usage:
+
    ```bash
    # Run multiple times in sequence
    for i in {1..5}; do
@@ -138,6 +151,7 @@ This document outlines the detailed steps to validate the jail roster scraper be
 ### Step 6: Dashboard Testing (if applicable)
 
 1. Start the dashboard:
+
    ```bash
    cd dashboard
    streamlit run app.py
@@ -152,6 +166,7 @@ This document outlines the detailed steps to validate the jail roster scraper be
 ### Step 7: Email Alert Testing
 
 1. Configure email settings in `.env`:
+
    ```
    ENABLE_EMAIL_ALERTS=True
    SMTP_HOST=your-smtp-host
@@ -163,6 +178,7 @@ This document outlines the detailed steps to validate the jail roster scraper be
    ```
 
 2. Trigger success and error alerts:
+
    ```bash
    # For success alerts, run normally
    python scraper/main.py
@@ -194,11 +210,13 @@ Use this checklist to track testing progress:
 After completing all tests:
 
 1. Restore any modified files:
+
    ```bash
    git checkout scraper/scraper.py
    ```
 
 2. Clean up test files:
+
    ```bash
    rm -f data/test_inmates.db data/test_inmates.csv
    ```

@@ -44,28 +44,33 @@ jailscrape/
 ### Local Setup
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/yourusername/jailscrape.git
    cd jailscrape
    ```
 
 2. Create and activate a virtual environment:
+
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
 3. Install requirements:
+
    ```bash
    pip install -r scraper/requirements.txt
    ```
 
 4. Install Playwright browsers:
+
    ```bash
    playwright install
    ```
 
 5. Copy `.env.example` to `.env` and configure settings:
+
    ```bash
    cp scraper/.env.example .env
    # Edit .env with appropriate values
@@ -76,22 +81,47 @@ jailscrape/
 For production deployment on a server, use the automated script:
 
 1. Edit deployment configuration:
+
    ```bash
    nano deploy.sh  # Set SERVER_USER, PROJECT_DIR, etc.
    ```
 
 2. Run the deployment script:
+
    ```bash
    sudo ./deploy.sh
    ```
 
 For details, see the [Quick Deployment Guide](docs/Deployment_Quick.md).
 
+### Streamlit Cloud Deployment
+
+For a quick demo version without the scraper functionality:
+
+1. Fork or push this repository to your GitHub account
+
+2. Sign up for a free Streamlit Cloud account at https://streamlit.io/cloud
+
+3. From the Streamlit Cloud dashboard, click "New app"
+
+4. Connect your GitHub account and select this repository
+
+5. In the deployment settings:
+   - Set the Main file path to: `streamlit_app.py`
+   - You can leave other settings as default
+
+6. Click "Deploy" and wait for the build process to complete
+
+7. Your dashboard will be available at a URL like: `https://your-app-name.streamlit.app`
+
+Note: The Streamlit Cloud deployment will automatically generate demo data for demonstration purposes, as the actual scraper functionality requires a server environment.
+
 ## Usage
 
 ### Manual Execution
 
 Run the scraper manually:
+
 ```bash
 python scraper/main.py
 ```
@@ -101,17 +131,19 @@ python scraper/main.py
 To use the data visualization dashboard:
 
 1. Install dashboard requirements:
+
    ```bash
    pip install -r dashboard/requirements.txt
    ```
 
 2. Run the dashboard:
+
    ```bash
    cd dashboard
    streamlit run app.py
    ```
 
-3. Access the dashboard in your web browser at http://localhost:8501
+3. Access the dashboard in your web browser at <http://localhost:8501>
 
 ## Configuration
 
@@ -145,6 +177,7 @@ The scraper uses environment variables for configuration, which can be set in a 
 ### Database
 
 The system maintains a SQLite database (`STATE_DB` path) to:
+
 - Track previously processed inmates
 - Record when inmates were first and last seen
 - Detect when inmates are released from custody
@@ -152,6 +185,7 @@ The system maintains a SQLite database (`STATE_DB` path) to:
 ### CSV Files
 
 New inmate records are appended to a CSV file (specified by `OUTPUT_CSV`):
+
 - New records are appended to existing files
 - Headers are written only when creating a new file
 - Data includes both basic info and detailed fields from inmate pages
@@ -177,6 +211,7 @@ The scraper is designed to work with the Montgomery County Jail Roster website b
 ## Troubleshooting
 
 If errors occur:
+
 1. Check the error log file specified in your `.env`
 2. Look for debug screenshots in `scraper/debug_screenshots/`
 3. Try running with `BROWSER_HEADLESS=False` to observe the browser
