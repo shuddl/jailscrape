@@ -327,6 +327,18 @@ paket-files/
 __pycache__/
 *.pyc
 
+# Python
+venv/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.env
+
+# Project specific
+data/*.db
+logs/
+
 # Cake - Uncomment if you are using it
 # tools/**
 # !tools/packages.config
