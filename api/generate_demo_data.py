@@ -66,8 +66,12 @@ CHARGES = [
 
 def random_date(start, end):
     """Generate a random datetime between start and end"""
+    # Handle case where start and end are the same or very close
+    if start >= end:
+        return start
+        
     delta = end - start
-    int_delta = (delta.days * 24 * 60 * 60) + delta.seconds
+    int_delta = max(1, (delta.days * 24 * 60 * 60) + delta.seconds)
     random_second = random.randrange(int_delta)
     return start + timedelta(seconds=random_second)
 
